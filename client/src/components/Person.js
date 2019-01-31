@@ -3,6 +3,8 @@ import styles from "./Person.pcss";
 import cx from "classnames";
 import posed from "react-pose";
 
+import Button from "./Button.js";
+
 const PosedContainer = posed.div({
   hidden: {
     x: "-130%",
@@ -37,7 +39,9 @@ export const Person = props => {
         {person.lastName}, {person.firstName} ({person.age})
       </div>
       <div>
-        <button onClick={() => firePerson(person.id)}>LIBERATE</button>
+        <Button block onClick={() => firePerson(person.id)}>
+          LIBERATE
+        </Button>
       </div>
     </PosedContainer>
   );

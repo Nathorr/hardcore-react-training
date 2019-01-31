@@ -1,22 +1,22 @@
 import React from "react";
 import PersonList from "./PersonList";
 import HirePersonForm from "./HirePersonForm";
-
 import personService from "../services/person";
+import { List } from "immutable";
 
 import "./App.pcss";
 
 class App extends React.Component {
   state = {
     counter: 0,
-    persons: []
+    persons: List()
   };
 
   async componentDidMount() {
     const persons = await personService.getPersons();
 
     this.setState(() => ({
-      persons
+      persons: List(persons)
     }));
   }
 
@@ -31,7 +31,7 @@ class App extends React.Component {
   hirePerson = person => {
     this.setState(state => {
       return {
-        persons: state.persons.concat([person])
+        persons: state.persons.push(person)
       };
     });
   };
@@ -51,7 +51,11 @@ class App extends React.Component {
         <HirePersonForm hirePerson={this.hirePerson} />
 
         <h2>Bad People</h2>
-        <PersonList persons={badPersons} firePerson={this.firePerson} />
+        <PersonList
+          showMetadata
+          persons={badPersons}
+          firePerson={this.firePerson}
+        />
 
         <h2>Good People</h2>
         <PersonList persons={goodPersons} firePerson={this.firePerson} />
